@@ -1,10 +1,25 @@
-import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const handleUpload = () => {
+    console.log("uploaded document");
+  }
+
+  const handleButtonClick = async () => {
+
+    const response = await fetch(import.meta.env.VITE_FUNCTION_URL as string, {
+      method: 'GET',
+      headers: {
+        'x-functions-key': import.meta.env.VITE_FUNCTION_API_KEY
+      } as HeadersInit
+    });
+
+    const data = await response.json();
+    console.log(data);
+  }
 
   return (
     <>
@@ -16,20 +31,13 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+      <h1>Tims dumb document uploader</h1>
+      <div>
+        <input type="file" id="fileUpload" />
+        <button onClick={handleUpload}>Add</button>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <button onClick={handleButtonClick}>Send GET request</button>
     </>
   )
 }
-
 export default App
