@@ -10,7 +10,7 @@ function App() {
 
   const handleButtonClick = async () => {
 
-    const response = await fetch(import.meta.env.VITE_FUNCTION_URL as string, {
+    const response = await fetch(`${import.meta.env.VITE_FUNCTION_URL as string}?name=timmy`, {
       method: 'GET',
       headers: {
         'x-functions-key': import.meta.env.VITE_FUNCTION_API_KEY
